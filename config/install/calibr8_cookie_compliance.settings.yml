@@ -1,0 +1,6 @@
+cookie_expiration: 100
+notification_message: 'This site uses cookies to make your browsing experience easier on this website.'
+info_link_label: 'More info'
+info_link_url: ''
+accept_link_style: 'close_icon'
+accept_link_label: 'Yes, I accept cookies'

@@ -1,0 +1,72 @@
+<?php
+
+use Drupal\Core\Url;
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function calibr8_cookie_compliance_page_attachments(&$attachments) {
+
+  // get config
+  $config = \Drupal::config('calibr8_cookie_compliance.settings');
+
+  // Create render array
+  $html_info = [
+    '#theme' => 'calibr8_cookie_info',
+    '#attributes' => new Attribute(array(
+      'id' => 'calibr8-cookie-compliance',
+      'class' => array()
+    )),
+    '#notification_message' => array(
+      '#markup' => t($config->get('notification_message')),
+    ),
+    '#info_link' => '',
+    '#accept_link' => '',
+  ];
+
+  // Generate more link
+  $info_link_url = $config->get('info_link_url');
+  if(isset($info_link_url['route_name']) && $config->get('info_link_label')) {
+    $url_object = Url::fromRoute($info_link_url['route_name'], $info_link_url['route_parameters']);
+    $html_info['#info_link'] = \Drupal::l(t($config->get('info_link_label')), $url_object);
+  }
+
+  // Generate accept link
+  if($config->get('accept_link_style') == 'close_icon') {
+    $html_info['#attributes']['class'][] = 'accept-style--close-icon';
+    $accept_link = '<a href="#" id="allow-cookies-link" class="button-circle icon-close"><span class="element-invisible">' . t($config->get('accept_link_label')) . '</span></a>';
+  } else {
+    $html_info['#attributes']['class'][] = 'accept-style--button';
+    $accept_link = '<a href="#" id="allow-cookies-link" class="button button-secondary">' . t($config->get('accept_link_label')) . '</a>';
+  }
+  $html_info['#accept_link'] = [
+    '#markup' => $accept_link,
+  ];
+
+  // Render markup
+  $markup = \Drupal::service('renderer')->renderRoot($html_info);
+
+  $attachments['#attached']['library'][] = 'calibr8_cookie_compliance/calibr8_cookie_compliance';
+  $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = array(
+    'markup' => $markup,
+    'cookie_expiration' => $config->get('cookie_expiration')
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function calibr8_cookie_compliance_theme() {
+  return array(
+    'calibr8_cookie_info' => array(
+      'variables' => [
+        'attributes' => array(),
+        'notification_message' => array(),
+        'info_link' => array(),
+        'accept_link' => array()
+      ],
+      'template' => 'cookie_info',
+    )
+  );
+}

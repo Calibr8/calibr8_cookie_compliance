@@ -1,0 +1,8 @@
+q8_cookie_compliance.settings:
+  type: config_object
+  label: 'Q8 Cookie Compliance settings'
+  mapping:
+    notification_message:
+      type: text # translatable by default.
+      translatable: true
+      label: 'Notification message'
