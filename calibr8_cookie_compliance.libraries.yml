@@ -3,7 +3,10 @@ calibr8_cookie_compliance:
   js:
     js/calibr8-cookie-compliance.js: {}
   dependencies:
+    - core/drupal
+    - core/drupalSettings
     - core/jquery
+    - core/jquery.once
     - core/jquery.ui
     - core/jquery.ui.draggable
     - core/underscore

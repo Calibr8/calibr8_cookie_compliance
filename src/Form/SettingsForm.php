@@ -35,8 +35,7 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('calibr8_cookie_compliance.settings');
 
-    // API settings
-
+    // Settings.
     $form['settings'] = [
       '#type' => 'details',
       '#title' => $this->t('Settings'),
@@ -46,13 +45,9 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Cookie expiration'),
       '#description' => $this->t('Days before approval cookie expires.'),
       '#default_value' => $config->get('cookie_expiration'),
-      '#required' => true,
+      '#required' => TRUE,
     ];
 
-    // $form['api_settings'] = [
-    //   '#type' => 'details',
-    //   '#title' => $this->t('API settings'),
-    // ];
     $form['notification'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Notification'),
@@ -75,7 +70,7 @@ class SettingsForm extends ConfigFormBase {
 
     $info_link_url = $config->get('info_link_url');
     $url = '';
-    if(isset($info_link_url['route_name'])) {
+    if (isset($info_link_url['route_name'])) {
       $url_object = Url::fromRoute($info_link_url['route_name'], $info_link_url['route_parameters']);
       $url = $url_object->toString();
     }
@@ -85,7 +80,6 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('URL'),
       '#description' => $this->t('Usually links to a disclaimer page.'),
       '#default_value' => $url,
-      // '#options' => ['external' => TRUE]
     ];
 
     $form['accept_link'] = [
@@ -100,23 +94,16 @@ class SettingsForm extends ConfigFormBase {
         'button' => $this->t('Button'),
       ],
       '#default_value' => $config->get('accept_link_style'),
-      '#required' => true,
+      '#required' => TRUE,
     ];
     $form['accept_link']['accept_link_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#default_value' => $config->get('accept_link_label'),
-      '#required' => true,
+      '#required' => TRUE,
     ];
 
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
   }
 
   /**

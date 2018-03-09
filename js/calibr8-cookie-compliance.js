@@ -16,7 +16,7 @@
    */
   Drupal.calibr8CookieCompliance.settings = {
     markup: '',
-    cookie_expiration: 100,
+    cookie_expiration: 100
   };
 
   var cookieIdentifier = 'cookie_compliance';
@@ -56,17 +56,17 @@
   };
 
   /**
-   * Set the cookie status
+   * Set the cookie status.
    */
   Drupal.calibr8CookieCompliance.setCookie = function (status) {
     var date = new Date();
-    date.setDate(date.getDate() + Drupal.calibr8CookieCompliance.settings.cookie_expiration);
+    date.setTime(date.getTime() + (Drupal.calibr8CookieCompliance.settings.cookie_expiration*1000*60*60*24));
     var cookie = cookieIdentifier + '=' + status + ';expires=' + date.toUTCString() + ';path=' + drupalSettings.path.baseUrl;
     document.cookie = cookie;
   };
 
   /**
-   * Show the popup
+   * Show the popup.
    */
   Drupal.calibr8CookieCompliance.show = function() {
     var $insert = $('#site-wrapper');
