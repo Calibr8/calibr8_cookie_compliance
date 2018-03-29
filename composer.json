@@ -9,7 +9,12 @@
         {
             "name": "Wouter Dierick",
             "email": "wouter.dierick@calibrate.be",
-            "homepage": "http://www.calibrate.be"
+            "homepage": "https://www.calibrate.be"
+        },
+        {
+            "name": "Tim Diels",
+            "email": "tim.diels@calibrate.be",
+            "homepage": "https://www.calibrate.be"
         }
     ],
     "require": {

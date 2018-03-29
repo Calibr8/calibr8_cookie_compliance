@@ -53,53 +53,31 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Notification'),
     ];
     $form['notification']['notification_message'] = [
-      '#type' => 'textfield',
+      '#type' => 'text_format',
+      '#format' => !empty($config->get('notification_message')['format']) ? $config->get('notification_message')['format']: 'basic_html',
       '#title' => $this->t('Notification message'),
-      '#default_value' => $config->get('notification_message'),
+      '#default_value' => !empty($config->get('notification_message')['value']) ? $config->get('notification_message')['value']: '',
     ];
 
-    $form['info_link'] = [
+    $form['agree_button'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Info link'),
+      '#title' => $this->t('Agree Button'),
     ];
-    $form['info_link']['info_link_label'] = [
+    $form['agree_button']['agree_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
-      '#default_value' => $config->get('info_link_label'),
-    ];
-
-    $info_link_url = $config->get('info_link_url');
-    $url = '';
-    if (isset($info_link_url['route_name'])) {
-      $url_object = Url::fromRoute($info_link_url['route_name'], $info_link_url['route_parameters']);
-      $url = $url_object->toString();
-    }
-
-    $form['info_link']['info_link_url'] = [
-      '#type' => 'path',
-      '#title' => $this->t('URL'),
-      '#description' => $this->t('Usually links to a disclaimer page.'),
-      '#default_value' => $url,
-    ];
-
-    $form['accept_link'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Accept link'),
-    ];
-    $form['accept_link']['accept_link_style'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Link style'),
-      '#options' => [
-        'close_icon' => $this->t('Close icon'),
-        'button' => $this->t('Button'),
-      ],
-      '#default_value' => $config->get('accept_link_style'),
+      '#default_value' => $config->get('agree_button_label'),
       '#required' => TRUE,
     ];
-    $form['accept_link']['accept_link_label'] = [
+
+    $form['disagree_button'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Disagree Button'),
+    ];
+    $form['disagree_button']['disagree_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
-      '#default_value' => $config->get('accept_link_label'),
+      '#default_value' => $config->get('disagree_button_label'),
       '#required' => TRUE,
     ];
 
@@ -114,10 +92,8 @@ class SettingsForm extends ConfigFormBase {
     $this->config('calibr8_cookie_compliance.settings')
       ->set('cookie_expiration', $form_state->getValue('cookie_expiration'))
       ->set('notification_message', $form_state->getValue('notification_message'))
-      ->set('info_link_label', $form_state->getValue('info_link_label'))
-      ->set('info_link_url', $form_state->getValue('info_link_url'))
-      ->set('accept_link_style', $form_state->getValue('accept_link_style'))
-      ->set('accept_link_label', $form_state->getValue('accept_link_label'))
+      ->set('agree_button_label', $form_state->getValue('agree_button_label'))
+      ->set('disagree_button_label', $form_state->getValue('disagree_button_label'))
       ->save();
   }
 

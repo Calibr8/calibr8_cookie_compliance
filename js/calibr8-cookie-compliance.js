@@ -34,25 +34,40 @@
           Drupal.calibr8CookieCompliance.show();
         }
       });
+
+      $('#calibrate-agree-cookie-compliance').click(function(e) {
+          e.preventDefault();
+          Drupal.calibr8CookieCompliance.setCookie(1);
+          Drupal.calibr8CookieCompliance.close();
+      });
+      $('#calibrate-disagree-cookie-compliance').click(function(e) {
+          e.preventDefault();
+          Drupal.calibr8CookieCompliance.setCookie(0);
+          Drupal.calibr8CookieCompliance.close();
+      });
     }
   };
 
   /**
    * Get the cookie status
    * @return:
-   * - 0: cookie is not found
-   * - 1: cookie is found
+   * - 0: cookie is not found or consent is not given.
+   * - 1: cookie is found and consent is given
    */
   Drupal.calibr8CookieCompliance.getCookieStatus = function () {
-    var search = cookieIdentifier + '=';
-    var returnValue = 0;
-    if (document.cookie.length > 0) {
-      var offset = document.cookie.indexOf(search);
-      if (offset !== -1) {
-        returnValue = 1;
+      var name = cookieIdentifier + '=';
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) === ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) === 0) {
+              return c.substring(name.length, c.length);
+          }
       }
-    }
-    return returnValue;
+      return false;
   };
 
   /**
@@ -69,19 +84,15 @@
    * Show the popup.
    */
   Drupal.calibr8CookieCompliance.show = function() {
-    var $insert = $('#site-wrapper');
-    if($('#calibr8-cookie-compliance-placeholder').length) {
-      $insert = $('#calibr8-cookie-compliance-placeholder');
-    }
-    $insert.prepend(Drupal.calibr8CookieCompliance.settings.markup);
-    $('#allow-cookies-link').bind('click', function(e) {
-      e.preventDefault();
-      Drupal.calibr8CookieCompliance.setCookie(1);
-      $('#calibr8-cookie-compliance').slideUp(function() {
-        // trigger resize event.
-        $(window).resize();
-      });
-    });
+    $(document.body).append(Drupal.calibr8CookieCompliance.settings.markup);
+      $('#calibr8-cookie-compliance').slideDown();
+  };
+
+  /**
+   * Hide the popup.
+   */
+  Drupal.calibr8CookieCompliance.close = function() {
+    $('#calibr8-cookie-compliance').slideUp();
   };
 
 })(jQuery, Drupal, drupalSettings);

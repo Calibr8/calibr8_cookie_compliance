@@ -1,6 +1,6 @@
 cookie_expiration: 100
-notification_message: 'This site uses cookies to make your browsing experience easier on this website.'
-info_link_label: 'More info'
-info_link_url: ''
-accept_link_style: 'close_icon'
-accept_link_label: 'Yes, I accept cookies'
+notification_message:
+  value: '<p>This website makes use of necessary cookies. In order to optimize your user experience, the website makes use of optional cookies for which we ask your permission. <a href="#">Click for more information</a></p>'
+  format: basic_html
+agree_button_label: 'Yes, I accept'
+disagree_button_label: 'No, I do not accept'
