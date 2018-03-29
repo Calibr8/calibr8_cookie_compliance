@@ -12,9 +12,13 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Implements hook_page_attachments().
  */
 function calibr8_cookie_compliance_page_attachments(&$attachments) {
-
   // Get config.
   $config = \Drupal::config('calibr8_cookie_compliance.settings');
+
+  $admin_context = \Drupal::service('router.admin_context');
+  if ($admin_context->isAdminRoute() || empty($config) || !isset($config->get('notification_message')['value'])) {
+    return;
+  }
 
   // Create render array.
   $html_info = [
@@ -41,6 +45,8 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
   $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = [
     'markup' => $markup,
     'cookie_expiration' => $config->get('cookie_expiration'),
+    'cookie_agree_value' => $config->get('cookie_agree_value'),
+    'cookie_disagree_value' => $config->get('cookie_disagree_value'),
   ];
 }
 

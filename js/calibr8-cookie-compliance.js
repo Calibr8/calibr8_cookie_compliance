@@ -37,12 +37,13 @@
 
       $('#calibrate-agree-cookie-compliance').click(function(e) {
           e.preventDefault();
-          Drupal.calibr8CookieCompliance.setCookie(1);
+          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
           Drupal.calibr8CookieCompliance.close();
       });
+
       $('#calibrate-disagree-cookie-compliance').click(function(e) {
           e.preventDefault();
-          Drupal.calibr8CookieCompliance.setCookie(0);
+          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
           Drupal.calibr8CookieCompliance.close();
       });
     }
@@ -58,6 +59,7 @@
       var name = cookieIdentifier + '=';
       var decodedCookie = decodeURIComponent(document.cookie);
       var ca = decodedCookie.split(';');
+
       for (var i = 0; i < ca.length; i++) {
           var c = ca[i];
           while (c.charAt(0) === ' ') {
@@ -76,6 +78,7 @@
   Drupal.calibr8CookieCompliance.setCookie = function (status) {
     var date = new Date();
     date.setTime(date.getTime() + (Drupal.calibr8CookieCompliance.settings.cookie_expiration*1000*60*60*24));
+
     var cookie = cookieIdentifier + '=' + status + ';expires=' + date.toUTCString() + ';path=' + drupalSettings.path.baseUrl;
     document.cookie = cookie;
   };
@@ -85,7 +88,7 @@
    */
   Drupal.calibr8CookieCompliance.show = function() {
     $(document.body).append(Drupal.calibr8CookieCompliance.settings.markup);
-      $('#calibr8-cookie-compliance').slideDown();
+    $('#calibr8-cookie-compliance').slideDown();
   };
 
   /**

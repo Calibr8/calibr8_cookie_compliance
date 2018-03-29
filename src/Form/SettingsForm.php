@@ -4,7 +4,6 @@ namespace Drupal\calibr8_cookie_compliance\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 
 /**
  * Class SettingsForm.
@@ -69,6 +68,13 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('agree_button_label'),
       '#required' => TRUE,
     ];
+    $form['agree_button']['cookie_agree_value'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Value'),
+      '#default_value' => !empty($config->get('cookie_agree_value')) ? $config->get('cookie_agree_value') : 2,
+      '#required' => TRUE,
+    );
+
 
     $form['disagree_button'] = [
       '#type' => 'fieldset',
@@ -80,6 +86,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('disagree_button_label'),
       '#required' => TRUE,
     ];
+    $form['disagree_button']['cookie_disagree_value'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Value'),
+      '#default_value' => !empty($config->get('cookie_disagree_value')) ? $config->get('cookie_disagree_value') : 1,
+      '#required' => TRUE,
+    );
 
     return parent::buildForm($form, $form_state);
   }
@@ -93,7 +105,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('cookie_expiration', $form_state->getValue('cookie_expiration'))
       ->set('notification_message', $form_state->getValue('notification_message'))
       ->set('agree_button_label', $form_state->getValue('agree_button_label'))
+      ->set('cookie_agree_value', $form_state->getValue('cookie_agree_value'))
       ->set('disagree_button_label', $form_state->getValue('disagree_button_label'))
+      ->set('cookie_disagree_value', $form_state->getValue('cookie_disagree_value'))
       ->save();
   }
 

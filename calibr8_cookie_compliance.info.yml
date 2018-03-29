@@ -1,4 +1,4 @@
-name: Calibr8 Cookie compliance
+name: Calibr8 Cookie Compliance
 description: Ask users to allow this site to store cookies on local machine.
 package: Calibr8
 type: module
