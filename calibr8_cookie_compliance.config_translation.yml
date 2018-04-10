@@ -1,5 +1,0 @@
-calibr8_cookie_compliance:
-  title: 'Calibr8 Cookie Compliance settings'
-  base_route_name: system.site_information_settings
-  names:
-    - calibr8_cookie_compliance.settings

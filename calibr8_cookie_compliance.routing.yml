@@ -1,8 +1,0 @@
-# Settings page
-calibr8_cookie_compliance.settings:
-  path: '/admin/config/calibr8/cookie_compliance'
-  defaults:
-    _form: '\Drupal\calibr8_cookie_compliance\Form\SettingsForm'
-    _title: 'Cookie Compliance'
-  requirements:
-    _permission: 'administer calibrate cookie compliance'

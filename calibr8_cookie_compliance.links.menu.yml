@@ -1,7 +1,0 @@
-# Menu item for configuration page.
-calibr8_cookie_compliance.settings:
-  title: 'Cookie compliance'
-  description: 'Settings for the cookie compliance'
-  route_name: calibr8_cookie_compliance.settings
-  parent: system.admin_config_calibr8
-  weight: 98
