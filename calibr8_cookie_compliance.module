@@ -1,0 +1,146 @@
+<?php
+/**
+ * @file
+ * This module intends to deal with the EU Directive on Privacy and Electronic
+ * Communications that comes into effect in the UK on 26th May 2012.
+ *
+ * Author: Marcin Pajdzik
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function calibr8_cookie_compliance_menu() {
+  $items['admin/config/system/calibr8-cookie-compliance'] = [
+    'title' => 'Calibr8 Cookie Compliance',
+    'description' => 'Make your website compliant with the EU Directive on Privacy and Electronic Communications.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['calibr8_cookie_compliance_admin_form'],
+    'access arguments' => ['administer calibr8 cookie compliance'],
+    'file' => 'calibr8_cookie_compliance.admin.inc',
+  ];
+  return $items;
+}
+
+/**
+ * Implements hook_page_build(&$page).
+ */
+function calibr8_cookie_compliance_page_build(&$page) {
+  $settings = calibr8_cookie_compliance_get_settings();
+  if (path_is_admin(current_path()) || empty($settings) || !isset($settings['popup_info']['value'])) {
+    return;
+  }
+  $page['content']['cookie_compliance'] = array(
+    '#markup' => theme('calibr8_cookie_compliance_popup', [
+      'message' => $settings['popup_info']['value'],
+      'agree_button' => $settings['popup_agree_button_message'],
+      'disagree_button' => $settings['popup_disagree_button_message'],
+    ]),
+    '#weight' => 99,
+  );
+  $page['content']['cookie_compliance']['#attached']['js'][] = [
+    'type' => 'setting',
+    'data' => [
+      'calibr8CookieCompliance' => [
+        'agree_value' => $settings['cookie_agree']['cookie_agree_value'],
+        'disagree_value' => $settings['cookie_disagree']['cookie_disagree_value'],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_permission().
+ */
+function calibr8_cookie_compliance_permission() {
+  return [
+    'administer calibr8 cookie compliance' => [
+      'title' => t('Administer the calibr8 cookie compliance settings'),
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function calibr8_cookie_compliance_theme() {
+  $path = drupal_get_path('module', 'calibr8_cookie_compliance') . '/templates';
+  return [
+    'calibr8_cookie_compliance_popup' => [
+      'template' => 'calibr8-cookie-compliance-popup',
+      'variables' => [
+        'message' => NULL,
+        'agree_button' => NULL,
+        'disagree_button' => NULL,
+      ],
+      'path' => $path,
+    ],
+    'calibr8_cookie_compliance_status' => [
+      'template' => 'calibr8-cookie-compliance-status',
+      'variables' => [
+        'status_text' => NULL,
+        'agree_text' => NULL,
+        'disagree_text' => NULL,
+        'agree_link_text' => NULL,
+        'disagree_link_text' => NULL,
+      ],
+      'path' => $path,
+    ],
+  ];
+}
+
+/**
+ *
+ * Retrieves settings from the database.
+ *
+ * @return settings
+ */
+
+function calibr8_cookie_compliance_get_settings() {
+  return variable_get('calibr8_cookie_compliance', []);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function calibr8_cookie_compliance_block_info() {
+  $blocks = [];
+  $blocks['calibr8_cookiec_status'] = [
+    'info' => t('calibr8 cookie compliance status block'),
+  ];
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function calibr8_cookie_compliance_block_view($delta='') {
+  $block = [];
+  switch ($delta) {
+    case 'calibr8_cookiec_status' :
+      $block['content'] = _calibr8_cookie_compliance_status_block_content();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Returns the HTML for the status block.
+ *
+ * @return String
+ */
+function _calibr8_cookie_compliance_status_block_content() {
+  $settings = calibr8_cookie_compliance_get_settings();
+  if (empty($settings)) {
+    return;
+  }
+  return theme('calibr8_cookie_compliance_status', [
+    'status_text' => $settings['status_text']['value'],
+    'agree_text' => $settings['cookie_agree']['cookie_agree_text'],
+    'disagree_text' => $settings['cookie_disagree']['cookie_disagree_text'],
+    'agree_link_text' => $settings['cookie_agree']['cookie_agree_link_text'],
+    'disagree_link_text' => $settings['cookie_disagree']['cookie_disagree_link_text'],
+  ]);
+}

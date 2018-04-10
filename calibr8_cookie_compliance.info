@@ -1,0 +1,5 @@
+name = calibr8: Cookie Compliance
+description = Cookie compliance popup
+core = 7.x
+package = Calibrate
+scripts[] = 'assets/js/calibr8_cookie_compliance.js'
