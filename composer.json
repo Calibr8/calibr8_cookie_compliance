@@ -15,6 +15,11 @@
             "name": "Tim Diels",
             "email": "tim.diels@calibrate.be",
             "homepage": "https://www.calibrate.be"
+        },
+        {
+            "name": "Michael Schuddings",
+            "email": "michael@calibrate.be",
+            "homepage": "https://www.calibrate.be"
         }
     ],
     "require": {

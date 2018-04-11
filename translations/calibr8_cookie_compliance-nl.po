@@ -1,0 +1,68 @@
+# Dutch translation of Calibr8 cookie compliance (8.x-2.1.1)
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Calibr8 Cookie Compliance (8.x-2.1.1)\n"
+"POT-Creation-Date: 2018-04-11 12:00+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Calibrate\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+msgid '<p>Currently your have given [[status]] for optional cookies. You can change this here:</p>'
+msgstr '<p>Momenteel heb je [[status]] gegeven voor optionele cookies. Je kan dit hier aanpassen:</p>'
+
+msgid "Give my consent"
+msgstr "Toestemming geven"
+
+msgid "No consent"
+msgstr "GEEN TOESTEMMING"
+
+msgid "Withdraw my consent"
+msgstr "Toestemming intrekken"
+
+msgid "Consent"
+msgstr "TOESTEMMING"
+
+msgid '<p>This website makes use of necessary cookies. In order to optimize your user experience, the website makes use of optional cookies for which we ask your permission. <a href="#">Click for more information</a></p>'
+msgstr '<p>Deze website maakt gebruik van noodzakelijke cookies. Om je gebruikerservaring op onze website te optimaliseren maken we ook gebruik van optionele cookies waarvoor we je toestemming vragen. Klik voor meer informatie.</p>'
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Agree Button"
+msgstr "Akkoord knop"
+
+msgid "Cookie expiration"
+msgstr "Cookie vervaldatum"
+
+msgid "Days before approval cookie expires."
+msgstr "Dagen voordat goedkeuring cookie vervalt."
+
+msgid "Notification"
+msgstr "Kennisgeving"
+
+msgid "Notification message"
+msgstr "Kennisgevings bericht"
+
+msgid "Status message"
+msgstr "Status bericht"
+
+msgid "Used in the block where the user can see the cookie status and alter it. Use [[status]] where the current user status should be printed out."
+msgstr "Gebruikt in het blok waar de gebruiker de cookiestatus kan zien en kan wijzigen. Gebruik [[status]] waar de huidige gebruikersstatus moet worden afgedrukt."
+
+msgid "Cookie agree link text"
+msgstr "Cookie akkoord linktekst"
+
+msgid "The text for the link that will allow users to give their consent."
+msgstr "De tekst voor de link waarmee gebruikers toestemming kunnen geven."
+
+msgid "Disagree Button"
+msgstr "Niet akkoord knop"
+
+msgid "Cookie disagree link text"
+msgstr "Niet akkoord linktekst"
+
+msgid "The text for the link that will allow users to withdraw their consent."
+msgstr "De tekst voor de link waarmee gebruikers hun toestemming kunnen intrekken."

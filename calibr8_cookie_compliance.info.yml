@@ -5,6 +5,9 @@ type: module
 core: 8.x
 configure: calibr8_cookie_compliance.settings
 
+interface translation project: calibr8_cookie_compliance
+interface translation server pattern: modules/calibr8/calibr8_cookie_compliance/translations/calibr8_cookie_compliance-%language.po
+
 version: '8.x-2.0'
 dependencies:
   - calibr8_admin
