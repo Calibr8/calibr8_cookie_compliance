@@ -65,5 +65,15 @@ function calibr8_cookie_compliance_theme() {
       ],
       'template' => 'cookie_info',
     ],
+    'calibr8_cookie_compliance_status' => [
+      'template' => 'cookie_status',
+      'variables' => [
+        'status_text' => NULL,
+        'agree_text' => NULL,
+        'disagree_text' => NULL,
+        'agree_link_text' => NULL,
+        'disagree_link_text' => NULL,
+      ],
+    ],
   ];
 }

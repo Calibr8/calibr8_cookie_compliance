@@ -50,6 +50,62 @@
   };
 
   /**
+   * Cookie status block.
+   */
+  Drupal.behaviors.cookieStatus = {
+    attach: function (context) {
+      var $cookieStatus = $('.calibr8-cookie-compliance-status');
+      if ($cookieStatus.length > 0) {
+        var $text = $('.calibr8-cookie-compliance-status__text');
+        $text.html($text.html().replace('[[status]]', '<span id="calibr8-cookie-status-wrapper"></span>'));
+
+        var cookieStatus = Drupal.cookieCompliance.getCookieStatus();
+        Drupal.behaviors.cookieStatus.setStatusText(cookieStatus);
+
+        Drupal.behaviors.cookieStatus.toggleButtonHandler();
+
+        $cookieStatus.show();
+      }
+    }
+  };
+
+  Drupal.behaviors.cookieStatus.toggleButtonHandler = function() {
+    var $toggleButton = $('#calibr8-cookie-status-toggle');
+    $toggleButton.click(function(e) {
+      e.preventDefault();
+
+      var cookieStatus = Drupal.cookieCompliance.getCookieStatus();
+      if (cookieStatus === Drupal.settings.calibr8CookieCompliance.agree_value) {
+        Drupal.cookieCompliance.setCookie(Drupal.settings.calibr8CookieCompliance.disagree_value);
+        Drupal.behaviors.cookieStatus.setStatusText(Drupal.settings.calibr8CookieCompliance.disagree_value);
+      } else {
+        Drupal.cookieCompliance.setCookie(Drupal.settings.calibr8CookieCompliance.agree_value);
+        Drupal.behaviors.cookieStatus.setStatusText(Drupal.settings.calibr8CookieCompliance.agree_value);
+      }
+    });
+  };
+
+  Drupal.behaviors.cookieStatus.setStatusText = function(cookieStatus) {
+    var $toggleButton = $('#calibr8-cookie-status-toggle');
+    var $textWrapper = $('.calibr8-cookie-compliance-status__text');
+    var $text = $('#calibr8-cookie-status-wrapper');
+    var text = '';
+    var linkText = '';
+
+    if (cookieStatus === Drupal.settings.calibr8CookieCompliance.agree_value) {
+      linkText = $toggleButton.attr('data-disagree');
+      text = $textWrapper.attr('data-agree');
+    }
+    else {
+      linkText = $toggleButton.attr('data-agree');
+      text = $textWrapper.attr('data-disagree');
+    }
+
+    $toggleButton.html(linkText);
+    $text.html(text);
+  };
+
+  /**
    * Get the cookie status
    * @return:
    * - 0: cookie is not found or consent is not given.

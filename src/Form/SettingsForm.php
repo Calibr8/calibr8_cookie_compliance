@@ -57,6 +57,15 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Notification message'),
       '#default_value' => !empty($config->get('notification_message')['value']) ? $config->get('notification_message')['value']: '',
     ];
+    $form['notification']['status_text'] = [
+      '#type' => 'text_format',
+      '#title' => t('Status message'),
+      '#description' => t('Used in the block where the user can see the cookie status and alter it.
+        Use [[status]] where the current user status should be printed out.'),
+      '#default_value' => !empty($config->get('status_text')['value']) ? $config->get('status_text')['value']: '',
+      '#required' => TRUE,
+      '#format' => !empty($config->get('status_text')['format']) ? $config->get('status_text')['format']: 'basic_html',
+    ];
 
     $form['agree_button'] = [
       '#type' => 'fieldset',
@@ -72,6 +81,13 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => t('Value'),
       '#default_value' => !empty($config->get('cookie_agree_value')) ? $config->get('cookie_agree_value') : 2,
+      '#required' => TRUE,
+    );
+    $form['agree_button']['cookie_agree_link_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Cookie agree link text'),
+      '#description' => t('The text for the link that will allow users to give their consent.'),
+      '#default_value' => !empty($config->get('cookie_agree_link_text')) ? $config->get('cookie_agree_link_text') : 'Give my consent',
       '#required' => TRUE,
     );
 
@@ -90,6 +106,13 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => t('Value'),
       '#default_value' => !empty($config->get('cookie_disagree_value')) ? $config->get('cookie_disagree_value') : 1,
+      '#required' => TRUE,
+    );
+    $form['disagree_button']['cookie_disagree_link_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Cookie disagree link text'),
+      '#description' => t('The text for the link that will allow users to withdraw their consent.'),
+      '#default_value' => !empty($config->get('cookie_disagree_link_text')) ? $config->get('cookie_disagree_link_text') : 'Withdraw my consent',
       '#required' => TRUE,
     );
 
