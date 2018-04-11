@@ -131,6 +131,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('cookie_agree_value', $form_state->getValue('cookie_agree_value'))
       ->set('disagree_button_label', $form_state->getValue('disagree_button_label'))
       ->set('cookie_disagree_value', $form_state->getValue('cookie_disagree_value'))
+      ->set('status_text', $form_state->getValue('status_text'))
+      ->set('cookie_agree_link_text', $form_state->getValue('cookie_agree_link_text'))
+      ->set('cookie_disagree_link_text', $form_state->getValue('cookie_disagree_link_text'))
       ->save();
   }
 
