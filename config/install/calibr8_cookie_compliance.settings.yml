@@ -3,7 +3,7 @@ notification_message:
   value: '<p>This website makes use of necessary cookies. In order to optimize your user experience, the website makes use of optional cookies for which we ask your permission. <a href="#">Click for more information</a></p>'
   format: basic_html
 status_text:
-  value: '<p>Currently your have given [[status]] for optional cookies. You can change this here:</p>'
+  value: '<p>Currently you have given [[status]] for optional cookies. You can change this here:</p>'
   format: basic_html
 agree_button_label: 'Yes, I accept'
 disagree_button_label: 'No, I do not accept'
@@ -11,3 +11,5 @@ cookie_agree_value: 2
 cookie_disagree_value: 1
 cookie_agree_link_text: 'Give my consent'
 cookie_disagree_link_text: 'Withdraw my consent'
+cookie_agree_status_text: 'consent'
+cookie_disagree_status_text: 'no consent'

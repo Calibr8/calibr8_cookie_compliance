@@ -10,14 +10,20 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-msgid '<p>Currently your have given [[status]] for optional cookies. You can change this here:</p>'
+msgid '<p>Currently you have given [[status]] for optional cookies. You can change this here:</p>'
 msgstr '<p>Momenteel heb je [[status]] gegeven voor optionele cookies. Je kan dit hier aanpassen:</p>'
 
 msgid "Give my consent"
 msgstr "Toestemming geven"
 
+msgid "consent"
+msgstr "Toestemming geven"
+
 msgid "No consent"
-msgstr "GEEN TOESTEMMING"
+msgstr "Geen toestemming"
+
+msgid "no consent"
+msgstr "geen toestemming"
 
 msgid "Withdraw my consent"
 msgstr "Toestemming intrekken"
@@ -66,3 +72,9 @@ msgstr "Niet akkoord linktekst"
 
 msgid "The text for the link that will allow users to withdraw their consent."
 msgstr "De tekst voor de link waarmee gebruikers hun toestemming kunnen intrekken."
+
+msgid "Cookie disagree status text"
+msgstr "Cookie niet akkoord statustekst."
+
+msgid "Cookie agree status text"
+msgstr "Cookie akkoord statustekst."

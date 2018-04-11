@@ -62,7 +62,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Status message'),
       '#description' => $this->t('Used in the block where the user can see the cookie status and alter it.
         Use [[status]] where the current user status should be printed out.'),
-      '#default_value' => !empty($config->get('status_text')['value']) ? $config->get('status_text')['value']: 'Currently your have given [[status]] for optional cookies. You can change this here:',
+      '#default_value' => !empty($config->get('status_text')['value']) ? $config->get('status_text')['value']: 'Currently you have given [[status]] for optional cookies. You can change this here:',
       '#required' => TRUE,
       '#format' => !empty($config->get('status_text')['format']) ? $config->get('status_text')['format']: 'basic_html',
     ];
@@ -81,6 +81,12 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Value'),
       '#default_value' => !empty($config->get('cookie_agree_value')) ? $config->get('cookie_agree_value') : 2,
+      '#required' => TRUE,
+    );
+    $form['agree_button']['cookie_agree_status_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie agree status text'),
+      '#default_value' => !empty($config->get('cookie_agree_status_text')) ? $config->get('cookie_agree_status_text') : 'consent',
       '#required' => TRUE,
     );
     $form['agree_button']['cookie_agree_link_text'] = array(
@@ -106,6 +112,12 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Value'),
       '#default_value' => !empty($config->get('cookie_disagree_value')) ? $config->get('cookie_disagree_value') : 1,
+      '#required' => TRUE,
+    );
+    $form['disagree_button']['cookie_disagree_status_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie disagree status text'),
+      '#default_value' => !empty($config->get('cookie_disagree_status_text')) ? $config->get('cookie_disagree_status_text') : 'no consent',
       '#required' => TRUE,
     );
     $form['disagree_button']['cookie_disagree_link_text'] = array(
@@ -134,6 +146,8 @@ class SettingsForm extends ConfigFormBase {
       ->set('status_text', $form_state->getValue('status_text'))
       ->set('cookie_agree_link_text', $form_state->getValue('cookie_agree_link_text'))
       ->set('cookie_disagree_link_text', $form_state->getValue('cookie_disagree_link_text'))
+      ->set('cookie_agree_status_text', $form_state->getValue('cookie_agree_status_text'))
+      ->set('cookie_disagree_status_text', $form_state->getValue('cookie_disagree_status_text'))
       ->save();
   }
 

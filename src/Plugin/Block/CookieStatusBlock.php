@@ -25,8 +25,8 @@ class CookieStatusBlock extends BlockBase  {
     return [
       '#theme' => 'calibr8_cookie_compliance_status',
       '#status_text' => new TranslatableMarkup($config->get('status_text')['value']),
-      '#agree_text' => new TranslatableMarkup($config->get('agree_button_label')),
-      '#disagree_text' => new TranslatableMarkup($config->get('disagree_button_label')),
+      '#agree_text' => new TranslatableMarkup($config->get('cookie_agree_status_text')),
+      '#disagree_text' => new TranslatableMarkup($config->get('cookie_disagree_status_text')),
       '#agree_link_text' => new TranslatableMarkup($config->get('cookie_agree_link_text')),
       '#disagree_link_text' => new TranslatableMarkup($config->get('cookie_disagree_link_text')),
     ];

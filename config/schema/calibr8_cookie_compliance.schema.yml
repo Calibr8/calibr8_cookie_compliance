@@ -40,3 +40,11 @@ calibr8_cookie_compliance.settings:
       type: text
       translatable: true
       label: 'Disagree link text'
+    cookie_agree_status_text:
+      type: text
+      translatable: true
+      label: 'Agree status text'
+    cookie_disagree_status_text:
+      type: text
+      translatable: true
+      label: 'Disagree status text'
