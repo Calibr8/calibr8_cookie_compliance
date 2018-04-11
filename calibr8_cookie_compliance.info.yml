@@ -6,8 +6,8 @@ core: 8.x
 configure: calibr8_cookie_compliance.settings
 
 interface translation project: calibr8_cookie_compliance
-interface translation server pattern: modules/calibrate/calibr8_cookie_compliance/translations/calibr8_cookie_compliance-%language.po
+interface translation server pattern: https://raw.githubusercontent.com/Calibr8/calibr8_cookie_compliance/master/translations/calibr8_cookie_compliance-nl.po
 
-version: '8.x-2.0'
+version: '8.x-2.1.3'
 dependencies:
   - calibr8_admin
