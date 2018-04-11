@@ -37,15 +37,15 @@
       });
 
       $('#calibrate-agree-cookie-compliance').click(function(e) {
-          e.preventDefault();
-          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
-          Drupal.calibr8CookieCompliance.close();
+        e.preventDefault();
+        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
+        Drupal.calibr8CookieCompliance.close();
       });
 
       $('#calibrate-disagree-cookie-compliance').click(function(e) {
-          e.preventDefault();
-          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
-          Drupal.calibr8CookieCompliance.close();
+        e.preventDefault();
+        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
+        Drupal.calibr8CookieCompliance.close();
       });
     }
   };
@@ -77,7 +77,7 @@
       e.preventDefault();
 
       var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
-      if (parseInt(cookieStatus) === Drupal.calibr8CookieCompliance.settings.cookie_agree_value) {
+      if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_agree_value)) {
         Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
         Drupal.calibr8CookieStatus.setStatusText(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
       } else {
@@ -94,7 +94,7 @@
     var text = '';
     var linkText = '';
 
-    if (parseInt(cookieStatus) === Drupal.calibr8CookieCompliance.settings.cookie_agree_value) {
+    if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_agree_value)) {
       linkText = $toggleButton.attr('data-disagree');
       text = $textWrapper.attr('data-agree');
     }
@@ -114,20 +114,20 @@
    * - 1: cookie is found and consent is given
    */
   Drupal.calibr8CookieCompliance.getCookieStatus = function () {
-      var name = cookieIdentifier + '=';
-      var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
+    var name = cookieIdentifier + '=';
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
 
-      for (var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) === ' ') {
-              c = c.substring(1);
-          }
-          if (c.indexOf(name) === 0) {
-              return c.substring(name.length, c.length);
-          }
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
       }
-      return false;
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return false;
   };
 
   /**
