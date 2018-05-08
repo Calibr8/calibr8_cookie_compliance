@@ -103,5 +103,38 @@ function calibr8_cookie_compliance_admin_form($form_state) {
     '#required' => TRUE,
   );
 
+  $form['#submit'][] = '_calibr8_cookie_compliance_admin_form_submit';
+
   return system_settings_form($form);
+}
+
+/**
+ * Form submit handler to update our i18n strings.
+ */
+function _calibr8_cookie_compliance_admin_form_submit($form, $form_state) {
+  $lang = language_default('language');
+
+  $popupInfoValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['popup_info']['value']);
+  _calibr8_cookie_compliance_translate_update('popup_info', $popupInfoValue, $lang);
+
+  $statusTextValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['status_text']['value']);
+  _calibr8_cookie_compliance_translate_update('status_text', $statusTextValue, $lang);
+
+  $cookieAgreeTextValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['cookie_agree']['cookie_agree_text']);
+  _calibr8_cookie_compliance_translate_update('cookie_agree_text', $cookieAgreeTextValue, $lang);
+
+  $cookieAgreeLinkTextValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['cookie_agree']['cookie_agree_link_text']);
+  _calibr8_cookie_compliance_translate_update('cookie_agree_link_text', $cookieAgreeLinkTextValue, $lang);
+
+  $cookieDisagreeTextValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['cookie_disagree']['cookie_disagree_text']);
+  _calibr8_cookie_compliance_translate_update('cookie_disagree_text', $cookieDisagreeTextValue, $lang);
+
+  $cookieDisagreeLinkTextValue = filter_xss($form_state['values']['calibr8_cookie_compliance']['cookie_disagree']['cookie_disagree_link_text']);
+  _calibr8_cookie_compliance_translate_update('cookie_disagree_link_text', $cookieDisagreeLinkTextValue, $lang);
+
+  $popupAgreeButtonMessage = filter_xss($form_state['values']['calibr8_cookie_compliance']['popup_agree_button_message']);
+  _calibr8_cookie_compliance_translate_update('popup_agree_button_message', $popupAgreeButtonMessage, $lang);
+
+  $popupDisagreeButtonMessage = filter_xss($form_state['values']['calibr8_cookie_compliance']['popup_disagree_button_message']);
+  _calibr8_cookie_compliance_translate_update('popup_disagree_button_message', $popupDisagreeButtonMessage, $lang);
 }
