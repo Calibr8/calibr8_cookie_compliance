@@ -35,9 +35,9 @@ function calibr8_cookie_compliance_page_build(&$page) {
 
   $page['content']['cookie_compliance'] = array(
     '#markup' => theme('calibr8_cookie_compliance_popup', [
-      'message' => _calibr8_cookie_compliance_translate('popup_info', $settings['popup_info']['value'], $language->lang),
-      'agree_button' => _calibr8_cookie_compliance_translate('popup_agree_button_message', $settings['popup_agree_button_message'], $language->lang),
-      'disagree_button' => _calibr8_cookie_compliance_translate('popup_disagree_button_message', $settings['popup_disagree_button_message'], $language->lang),
+      'message' => _calibr8_cookie_compliance_translate('popup_info', $settings['popup_info']['value'], $language->language),
+      'agree_button' => _calibr8_cookie_compliance_translate('popup_agree_button_message', $settings['popup_agree_button_message'], $language->language),
+      'disagree_button' => _calibr8_cookie_compliance_translate('popup_disagree_button_message', $settings['popup_disagree_button_message'], $language->language),
     ]),
     '#weight' => 99,
   );
@@ -141,11 +141,11 @@ function _calibr8_cookie_compliance_status_block_content() {
     return;
   }
   return theme('calibr8_cookie_compliance_status', [
-    'status_text' => _calibr8_cookie_compliance_translate('status_text', $settings['status_text']['value'], $language->lang),
-    'agree_text' => _calibr8_cookie_compliance_translate('cookie_agree_text', $settings['cookie_agree']['cookie_agree_text'], $language->lang),
-    'disagree_text' => _calibr8_cookie_compliance_translate('cookie_disagree_text', $settings['cookie_disagree']['cookie_disagree_text'], $language->lang),
-    'agree_link_text' => _calibr8_cookie_compliance_translate('cookie_agree_link_text', $settings['cookie_agree']['cookie_agree_link_text'], $language->lang),
-    'disagree_link_text' => _calibr8_cookie_compliance_translate('cookie_disagree_link_text', $settings['cookie_disagree']['cookie_disagree_link_text'], $language->lang),
+    'status_text' => _calibr8_cookie_compliance_translate('status_text', $settings['status_text']['value'], $language->language),
+    'agree_text' => _calibr8_cookie_compliance_translate('cookie_agree_text', $settings['cookie_agree']['cookie_agree_text'], $language->language),
+    'disagree_text' => _calibr8_cookie_compliance_translate('cookie_disagree_text', $settings['cookie_disagree']['cookie_disagree_text'], $language->language),
+    'agree_link_text' => _calibr8_cookie_compliance_translate('cookie_agree_link_text', $settings['cookie_agree']['cookie_agree_link_text'], $language->language),
+    'disagree_link_text' => _calibr8_cookie_compliance_translate('cookie_disagree_link_text', $settings['cookie_disagree']['cookie_disagree_link_text'], $language->language),
   ]);
 }
 
