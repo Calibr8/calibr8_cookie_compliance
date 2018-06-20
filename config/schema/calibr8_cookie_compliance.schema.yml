@@ -5,10 +5,9 @@ calibr8_cookie_compliance.settings:
     notification_message:
       type: mapping
       label: 'Notification message'
-      maping:
+      mapping:
         value:
-          type: text # translatable by default.
-          translatable: true
+          type: text
           label: 'Value'
         format:
           type: string
@@ -16,35 +15,34 @@ calibr8_cookie_compliance.settings:
     status_text:
       type: mapping
       label: 'Cookie status text'
-      maping:
+      mapping:
         value:
           type: text
-          translatable: true
           label: 'Value'
         format:
           type: string
           label: 'Text format'
     disagree_button_label:
-      type: text # translatable by default.
-      translatable: true
+      type: label
       label: 'Disagree button label'
     agree_button_label:
-      type: text # translatable by default.
-      translatable: true
+      type: label
       label: 'Agree button label'
+    cookie_agree_value:
+      type: integer
+      label: 'Cookie agree value'
+    cookie_disagree_value:
+      type: integer
+      label: 'Cookie disagree value'
     cookie_agree_link_text:
-      type: text
-      translatable: true
+      type: label
       label: 'Agree link text'
     cookie_disagree_link_text:
-      type: text
-      translatable: true
+      type: label
       label: 'Disagree link text'
     cookie_agree_status_text:
-      type: text
-      translatable: true
+      type: label
       label: 'Agree status text'
     cookie_disagree_status_text:
-      type: text
-      translatable: true
+      type: label
       label: 'Disagree status text'

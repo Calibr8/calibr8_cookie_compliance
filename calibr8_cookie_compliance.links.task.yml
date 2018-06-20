@@ -1,0 +1,4 @@
+calibr8_cookie_compliance.settings_tab:
+  route_name: calibr8_cookie_compliance.settings
+  title: Settings
+  base_route: calibr8_cookie_compliance.settings

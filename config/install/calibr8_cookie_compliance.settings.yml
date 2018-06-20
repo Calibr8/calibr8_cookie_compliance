@@ -1,3 +1,4 @@
+langcode: en
 cookie_expiration: 100
 notification_message:
   value: '<p>This website makes use of necessary cookies. In order to optimize your user experience, the website makes use of optional cookies for which we ask your permission. <a href="#">Click for more information</a></p>'
