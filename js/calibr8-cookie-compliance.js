@@ -145,6 +145,7 @@
    * Show the popup.
    */
   Drupal.calibr8CookieCompliance.show = function() {
+    $('body').addClass('has-cookie-compliance');
     $(document.body).append(Drupal.calibr8CookieCompliance.settings.markup);
     $('#calibr8-cookie-compliance').slideDown();
   };
@@ -153,6 +154,7 @@
    * Hide the popup.
    */
   Drupal.calibr8CookieCompliance.close = function() {
+    $('body').removeClass('has-cookie-compliance');
     $('#calibr8-cookie-compliance').slideUp();
   };
 
