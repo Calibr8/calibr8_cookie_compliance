@@ -45,8 +45,8 @@ function calibr8_cookie_compliance_page_build(&$page) {
     'type' => 'setting',
     'data' => [
       'calibr8CookieCompliance' => [
-        'agree_value' => $settings['cookie_agree']['cookie_agree_value'],
-        'disagree_value' => $settings['cookie_disagree']['cookie_disagree_value'],
+        'agree_value' => filter_xss($settings['cookie_agree']['cookie_agree_value']),
+        'disagree_value' => filter_xss($settings['cookie_disagree']['cookie_disagree_value']),
       ],
     ],
   ];
@@ -164,6 +164,7 @@ function _calibr8_cookie_compliance_status_block_content() {
  * @return array|bool|mixed|string
  */
 function _calibr8_cookie_compliance_translate($name, $string, $langcode = NULL) {
+  $string = filter_xss($string);
   return function_exists('i18n_string') ? htmlspecialchars_decode(i18n_string($name, $string, ['langcode' => $langcode])) : $string;
 }
 
