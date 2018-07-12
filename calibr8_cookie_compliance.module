@@ -7,6 +7,7 @@
 
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Implements hook_page_attachments().
@@ -28,13 +29,13 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
       'class' => [],
     ]),
     '#notification_message' => [
-      '#markup' => new TranslatableMarkup($config->get('notification_message')['value']),
+      '#markup' => new TranslatableMarkup(Xss::filter($config->get('notification_message')['value'])),
     ],
     '#disagree_button_label' => [
-      '#markup' => new TranslatableMarkup($config->get('disagree_button_label')),
+      '#markup' => new TranslatableMarkup(Xss::filter($config->get('disagree_button_label'))),
     ],
     '#agree_button_label' => [
-      '#markup' => new TranslatableMarkup($config->get('agree_button_label')),
+      '#markup' => new TranslatableMarkup(Xss::filter($config->get('agree_button_label'))),
     ]
   ];
 
@@ -44,9 +45,9 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
   $attachments['#attached']['library'][] = 'calibr8_cookie_compliance/calibr8_cookie_compliance';
   $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = [
     'markup' => $markup,
-    'cookie_expiration' => $config->get('cookie_expiration'),
-    'cookie_agree_value' => $config->get('cookie_agree_value'),
-    'cookie_disagree_value' => $config->get('cookie_disagree_value'),
+    'cookie_expiration' => Xss::filter($config->get('cookie_expiration')),
+    'cookie_agree_value' => Xss::filter($config->get('cookie_agree_value')),
+    'cookie_disagree_value' => Xss::filter($config->get('cookie_disagree_value')),
   ];
 }
 
