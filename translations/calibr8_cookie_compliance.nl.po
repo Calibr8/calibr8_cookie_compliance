@@ -78,3 +78,12 @@ msgstr "Cookie niet akkoord statustekst."
 
 msgid "Cookie agree status text"
 msgstr "Cookie akkoord statustekst."
+
+msgid "By clicking the following link, you will delete all cookies set by this website:"
+msgstr "Door op de volgende link te klikken, verwijder je alle cookies die geplaatst zijn door deze website:"
+
+msgid "Delete these cookies"
+msgstr "Verwijder deze cookies."
+
+msgid "Cookies successfully deleted"
+msgstr "Cookies met success verwijderd."
