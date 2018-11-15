@@ -128,6 +128,29 @@ class SettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     );
 
+    $form['delete'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Delete Button'),
+    ];
+    $form['delete']['delete_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie delete text'),
+      '#default_value' => !empty($config->get('delete_text')) ? $config->get('delete_text') : 'By clicking the following link, you will delete all cookies set by this website:',
+      '#required' => TRUE,
+    ];
+    $form['delete']['delete_button_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie delete button text'),
+      '#default_value' => !empty($config->get('delete_button_text')) ? $config->get('delete_button_text') : 'Delete these cookies',
+      '#required' => TRUE,
+    ];
+    $form['delete']['delete_cookie_successful_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie delete button text'),
+      '#default_value' => !empty($config->get('delete_cookie_successful_text')) ? $config->get('delete_cookie_successful_text') : 'Cookies successfully deleted',
+      '#required' => TRUE,
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -148,6 +171,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('cookie_disagree_link_text', $form_state->getValue('cookie_disagree_link_text'))
       ->set('cookie_agree_status_text', $form_state->getValue('cookie_agree_status_text'))
       ->set('cookie_disagree_status_text', $form_state->getValue('cookie_disagree_status_text'))
+      ->set('delete_text', $form_state->getValue('delete_text'))
+      ->set('delete_button_text', $form_state->getValue('delete_button_text'))
+      ->set('delete_cookie_successful_text', $form_state->getValue('delete_cookie_successful_text'))
       ->save();
   }
 

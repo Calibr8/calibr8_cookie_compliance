@@ -76,5 +76,13 @@ function calibr8_cookie_compliance_theme() {
         'disagree_link_text' => NULL,
       ],
     ],
+    'calibr8_cookie_compliance_delete' => [
+      'template' => 'cookie_delete',
+      'variables' => [
+        'delete_text' => NULL,
+        'delete_button_text' => NULL,
+        'delete_cookie_successful_text' => NULL,
+      ],
+    ],
   ];
 }
