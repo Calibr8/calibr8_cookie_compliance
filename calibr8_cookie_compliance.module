@@ -58,16 +58,16 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
 function calibr8_cookie_compliance_theme() {
   return [
     'calibr8_cookie_info' => [
+      'template' => 'calibr8_cookie_compliance_info',
       'variables' => [
         'attributes' => [],
-        'notification_message' => [],
-        'noconsent_button_label' => [],
-        'consent_button_label' => [],
+        'notification_message' => NULL,
+        'noconsent_button_label' => NULL,
+        'consent_button_label' => NULL,
       ],
-      'template' => 'cookie_info',
     ],
     'calibr8_cookie_compliance_status' => [
-      'template' => 'cookie_status',
+      'template' => 'calibr8_cookie_compliance_status',
       'variables' => [
         'status_text' => NULL,
         'consent_text' => NULL,
@@ -77,7 +77,7 @@ function calibr8_cookie_compliance_theme() {
       ],
     ],
     'calibr8_cookie_compliance_delete' => [
-      'template' => 'cookie_delete',
+      'template' => 'calibr8_cookie_compliance_delete',
       'variables' => [
         'delete_text' => NULL,
         'delete_button_text' => NULL,

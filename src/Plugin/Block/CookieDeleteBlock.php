@@ -26,14 +26,12 @@ class CookieDeleteBlock extends BlockBase  {
       '#markup' => $config->get('delete_text')['value'],
     ];
 
-    if (!empty($config->get('delete_text'))) {
-      return [
-        '#theme' => 'calibr8_cookie_compliance_delete',
-        '#delete_text' => $delete_text,
-        '#delete_button_text' => $config->get('delete_button_text'),
-        '#delete_cookie_successful_text' => $config->get('delete_cookie_successful_text'),
-      ];
-    }
+    return [
+      '#theme' => 'calibr8_cookie_compliance_delete',
+      '#delete_text' => $delete_text,
+      '#delete_button_text' => $config->get('delete_button_text'),
+      '#delete_cookie_successful_text' => $config->get('delete_cookie_successful_text'),
+    ];
   }
 
 }
