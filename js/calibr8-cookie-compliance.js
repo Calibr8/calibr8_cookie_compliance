@@ -28,8 +28,8 @@
    * Get the cookie status
    * @return:
    * - 0: cookie is not found or error
-   * - 1: cookie is found and consent is given
-   * - 2: cookie is found and consent is not given
+   * - 1: cookie is found and consent is not given
+   * - 2: cookie is found and consent is given
    */
   Drupal.calibr8CookieCompliance.getCookieStatus = function () {
     var name = cookieIdentifier + '=';
