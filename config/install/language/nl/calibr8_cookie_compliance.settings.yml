@@ -1,0 +1,14 @@
+notification_message:
+  value: '<p>Deze website maakt gebruik van noodzakelijke cookies. Om je gebruikerservaring op onze website te optimaliseren maken we ook gebruik van optionele cookies waarvoor we je toestemming vragen. <a href="#">Klik voor meer informatie</a></p>'
+consent_button_label: 'Ja, ik ga akkoord'
+noconsent_button_label: 'Neen bedankt'
+status_text:
+  value: '<p>Momenteel heb je [[status]] gegeven voor optionele cookies.</p>'
+cookie_consent_status_text: 'toestemming'
+cookie_noconsent_status_text: 'geen toestemming'
+cookie_consent_link_text: 'Toestemming geven'
+cookie_noconsent_link_text: 'Toestemming intrekken'
+delete_text:
+  value: '<p>Verwijder alle cookies van dit domein.</p>'
+delete_button_text: 'Verwijder alle cookies'
+delete_cookie_successful_text: 'Cookies met success verwijderd.'

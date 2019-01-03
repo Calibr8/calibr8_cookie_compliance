@@ -10,7 +10,9 @@
    * @namespace
    */
   Drupal.calibr8CookieCompliance = Drupal.calibr8CookieCompliance || {};
-  Drupal.calibr8CookieStatus = Drupal.calibr8CookieStatus || {};
+  Drupal.calibr8CookieInfoBlock = Drupal.calibr8CookieInfoBlock || {};
+  Drupal.calibr8CookieStatusBlock = Drupal.calibr8CookieStatusBlock || {};
+  Drupal.calibr8CookieDeleteBlock = Drupal.calibr8CookieDeleteBlock || {};
 
   /**
    * Default settings and variables
@@ -23,108 +25,11 @@
   var cookieIdentifier = 'cookie_compliance';
 
   /**
-   * Drupal behavior.
-   * Initialize Cookie compliance only once.
-   */
-  Drupal.behaviors.calibr8CookieCompliance = {
-    attach: function (context, drupalSettings) {
-      Drupal.calibr8CookieCompliance.settings = $.extend(Drupal.calibr8CookieCompliance.settings, drupalSettings.calibr8_cookie_compliance);
-      $('body', context).once('calibr8CookieComplianceOnce').each(function () {
-        var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
-        if(!cookieStatus) {
-          Drupal.calibr8CookieCompliance.show();
-        }
-      });
-
-      $('#calibrate-agree-cookie-compliance').click(function(e) {
-        e.preventDefault();
-        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
-        Drupal.calibr8CookieCompliance.close();
-      });
-
-      $('#calibrate-disagree-cookie-compliance').click(function(e) {
-        e.preventDefault();
-        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
-        Drupal.calibr8CookieCompliance.close();
-      });
-
-      $('#calibr8-cookies-delete').once().click(function(e) {
-        e.preventDefault();
-        var error = Drupal.calibr8CookieCompliance.deleteCookies();
-        if (!error) {
-          var successfulMessage= $(this).attr('data-delete-successful');
-
-          $(this).append('<span class="calibr8-cookies-deleted-succes"> - ' + successfulMessage + '</span>');
-          $('.calibr8-cookies-deleted-succes').fadeOut(2000, function() {
-            $(this).remove();
-          });
-        }
-      });
-    }
-  };
-
-  /**
-   * Cookie status block.
-   */
-  Drupal.behaviors.cookieStatus = {
-    attach: function (context) {
-      var $cookieStatus = $('.calibr8-cookie-compliance-status');
-      if ($cookieStatus.length > 0) {
-        var $text = $('.calibr8-cookie-compliance-status__text');
-        $text.html($text.html().replace('[[status]]', '<span id="calibr8-cookie-status-wrapper"></span>'));
-
-        var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
-        Drupal.calibr8CookieStatus.setStatusText(cookieStatus);
-
-        Drupal.calibr8CookieStatus.toggleButtonHandler();
-
-        $cookieStatus.show();
-      }
-    }
-  };
-
-  Drupal.calibr8CookieStatus.toggleButtonHandler = function() {
-    var $toggleButton = $('#calibr8-cookie-status-toggle');
-
-    $toggleButton.once().click(function(e) {
-      e.preventDefault();
-
-      var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
-      if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_agree_value)) {
-        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
-        Drupal.calibr8CookieStatus.setStatusText(Drupal.calibr8CookieCompliance.settings.cookie_disagree_value);
-      } else {
-        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
-        Drupal.calibr8CookieStatus.setStatusText(Drupal.calibr8CookieCompliance.settings.cookie_agree_value);
-      }
-    });
-  };
-
-  Drupal.calibr8CookieStatus.setStatusText = function(cookieStatus) {
-    var $toggleButton = $('#calibr8-cookie-status-toggle');
-    var $textWrapper = $('.calibr8-cookie-compliance-status__text');
-    var $text = $('#calibr8-cookie-status-wrapper');
-    var text = '';
-    var linkText = '';
-
-    if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_agree_value)) {
-      linkText = $toggleButton.attr('data-disagree');
-      text = $textWrapper.attr('data-agree');
-    }
-    else {
-      linkText = $toggleButton.attr('data-agree');
-      text = $textWrapper.attr('data-disagree');
-    }
-
-    $toggleButton.html(linkText);
-    $text.html(text);
-  };
-
-  /**
    * Get the cookie status
    * @return:
-   * - 0: cookie is not found or consent is not given.
+   * - 0: cookie is not found or error
    * - 1: cookie is found and consent is given
+   * - 2: cookie is found and consent is not given
    */
   Drupal.calibr8CookieCompliance.getCookieStatus = function () {
     var name = cookieIdentifier + '=';
@@ -140,7 +45,7 @@
         return c.substring(name.length, c.length);
       }
     }
-    return false;
+    return 0;
   };
 
   /**
@@ -155,26 +60,10 @@
   };
 
   /**
-   * Show the popup.
+   * Delete all cookies from this domain
+   * @return {boolean}
    */
-  Drupal.calibr8CookieCompliance.show = function() {
-    $('body').addClass('has-cookie-compliance');
-    $(document.body).append(Drupal.calibr8CookieCompliance.settings.markup);
-    $('#calibr8-cookie-compliance').slideDown();
-  };
-
-  /**
-   * Hide the popup.
-   */
-  Drupal.calibr8CookieCompliance.close = function() {
-    $('body').removeClass('has-cookie-compliance');
-    $('#calibr8-cookie-compliance').slideUp();
-  };
-
-  /**
-   * Delete all cookies
-   */
-  Drupal.calibr8CookieCompliance.deleteCookies = function() {
+  Drupal.calibr8CookieCompliance.deleteAllCookies = function() {
     var error = false;
     try {
       var cookies = document.cookie.split("; ");
@@ -199,6 +88,106 @@
       error = true;
     }
     return error;
+  };
+
+  /**
+   * Cookie info block (popup)
+   */
+  Drupal.behaviors.calibr8CookieComplianceInfoBlock = {
+    attach: function (context, drupalSettings) {
+      Drupal.calibr8CookieCompliance.settings = $.extend(Drupal.calibr8CookieCompliance.settings, drupalSettings.calibr8_cookie_compliance);
+
+      $('body', context).once('calibr8CookieComplianceOnce').each(function () {
+        var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
+        if(!cookieStatus) {
+          Drupal.calibr8CookieInfoBlock.show();
+        }
+      });
+      $('#calibr8-cookie-compliance-consent').once().click(function(e) {
+        e.preventDefault();
+        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_consent_value);
+        Drupal.calibr8CookieInfoBlock.close();
+      });
+      $('#calibr8-cookie-compliance-noconsent').once().click(function(e) {
+        e.preventDefault();
+        Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_noconsent_value);
+        Drupal.calibr8CookieInfoBlock.close();
+      });
+
+    }
+  };
+
+  Drupal.calibr8CookieInfoBlock.show = function() {
+    $('body').addClass('has-cookie-compliance');
+    $(document.body).append(Drupal.calibr8CookieCompliance.settings.markup);
+    $('#calibr8-cookie-compliance').slideDown();
+  };
+
+  Drupal.calibr8CookieInfoBlock.close = function() {
+    $('body').removeClass('has-cookie-compliance');
+    $('#calibr8-cookie-compliance').slideUp();
+  };
+
+  /**
+   * Cookie status block.
+   */
+  Drupal.behaviors.calibr8CookieStatusBlock = {
+    attach: function (context) {
+
+      var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
+      Drupal.calibr8CookieStatusBlock.setStatusText(cookieStatus);
+
+      $('#calibr8-cookie-compliance-status-toggle').once().click(function(e) {
+        e.preventDefault();
+        var cookieStatus = Drupal.calibr8CookieCompliance.getCookieStatus();
+        if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_consent_value)) {
+          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_noconsent_value);
+          Drupal.calibr8CookieStatusBlock.setStatusText(Drupal.calibr8CookieCompliance.settings.cookie_noconsent_value);
+        } else {
+          Drupal.calibr8CookieCompliance.setCookie(Drupal.calibr8CookieCompliance.settings.cookie_consent_value);
+          Drupal.calibr8CookieStatusBlock.setStatusText(Drupal.calibr8CookieCompliance.settings.cookie_consent_value);
+        }
+      });
+    }
+  };
+
+  Drupal.calibr8CookieStatusBlock.setStatusText = function(cookieStatus) {
+    var $toggleButton = $('#calibr8-cookie-compliance-status-toggle');
+    var $textWrapper = $('.calibr8-cookie-compliance-status__text');
+    var $anchor = $('#calibr8-cookie-compliance-status-text-anchor');
+
+    // get anchor and button text
+    var text = '';
+    var linkText = '';
+    if (parseInt(cookieStatus) === parseInt(Drupal.calibr8CookieCompliance.settings.cookie_consent_value)) {
+      linkText = $toggleButton.attr('data-noconsent');
+      text = $textWrapper.attr('data-consent');
+    }
+    else {
+      linkText = $toggleButton.attr('data-consent');
+      text = $textWrapper.attr('data-noconsent');
+    }
+    // replace text
+    $toggleButton.html(linkText);
+    $anchor.html(text);
+  };
+
+  /**
+   * Delete all cookies block
+   */
+  Drupal.behaviors.calibr8CookieDeleteBlock = {
+    attach: function (context) {
+      var $delete_button = $('#calibr8-cookie-compliance-delete');
+      $delete_button.once().click(function(e) {
+        e.preventDefault();
+        var error = Drupal.calibr8CookieCompliance.deleteAllCookies();
+        if (!error) {
+          var successfulMessage= $(this).attr('data-delete-successful');
+          $(this).closest('.calibr8-cookie-compliance-delete').append('<div class="calibr8-cookie-compliance-delete__success">' + successfulMessage + '</div>');
+          $(this).closest('.calibr8-cookie-compliance-delete__button').remove();
+        }
+      });
+    }
   };
 
 })(jQuery, Drupal, drupalSettings);

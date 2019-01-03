@@ -35,6 +35,7 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('calibr8_cookie_compliance.settings');
 
     // Settings.
+
     $form['settings'] = [
       '#type' => 'details',
       '#title' => $this->t('Settings'),
@@ -42,112 +43,119 @@ class SettingsForm extends ConfigFormBase {
     $form['settings']['cookie_expiration'] = [
       '#type' => 'number',
       '#title' => $this->t('Cookie expiration'),
+      '#default_value' => !empty($config->get('cookie_expiration')) ? $config->get('cookie_expiration') : 100,
       '#description' => $this->t('Days before approval cookie expires.'),
-      '#default_value' => $config->get('cookie_expiration'),
       '#required' => TRUE,
     ];
+    $form['settings']['cookie_noconsent_value'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie no consent value, default 1'),
+      '#default_value' => !empty($config->get('cookie_noconsent_value')) ? $config->get('cookie_noconsent_value') : 1,
+      '#required' => TRUE,
+    );
+    $form['settings']['cookie_consent_value'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie consent value, default 2'),
+      '#default_value' => !empty($config->get('cookie_consent_value')) ? $config->get('cookie_consent_value') : 2,
+      '#required' => TRUE,
+    );
 
-    $form['notification'] = [
+    // Info block.
+
+    $form['info_block'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Notification'),
+      '#title' => $this->t('Info block'),
     ];
-    $form['notification']['notification_message'] = [
+    $form['info_block']['notification_message'] = [
       '#type' => 'text_format',
-      '#format' => !empty($config->get('notification_message')['format']) ? $config->get('notification_message')['format']: 'basic_html',
+      '#format' => !empty($config->get('notification_message')['format']) ? $config->get('notification_message')['format']: 'editor',
       '#title' => $this->t('Notification message'),
       '#default_value' => !empty($config->get('notification_message')['value']) ? $config->get('notification_message')['value']: '<p>This website makes use of necessary cookies. In order to optimize your user experience, the website makes use of optional cookies for which we ask your permission. <a href="#">Click for more information</a></p>',
+      '#description' => $this->t('Short description of the cookie purpose, should include a link to the complete cookie statement.'),
     ];
-    $form['notification']['status_text'] = [
+    $form['info_block']['consent_button']['consent_button_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Consent button label'),
+      '#default_value' => !empty($config->get('consent_button_label')) ? $config->get('consent_button_label') : 'Yes, I agree',
+      '#description' => $this->t('Label for the button to give consent.'),
+      '#required' => TRUE,
+    ];
+    $form['info_block']['noconsent_button']['noconsent_button_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('No consent button label'),
+      '#default_value' => !empty($config->get('noconsent_button_label')) ? $config->get('noconsent_button_label') : 'No thanks',
+      '#description' => $this->t('Label for the button to decline consent.'),
+      '#required' => TRUE,
+    ];
+
+    // Status block.
+
+    $form['status_block'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Status block'),
+    ];
+    $form['status_block']['status_text'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Status message'),
-      '#description' => $this->t('Used in the block where the user can see the cookie status and alter it.
-        Use [[status]] where the current user status should be printed out.'),
-      '#default_value' => !empty($config->get('status_text')['value']) ? $config->get('status_text')['value']: 'Currently you have given [[status]] for optional cookies. You can change this here:',
+      '#default_value' => !empty($config->get('status_text')['value']) ? $config->get('status_text')['value']: 'Currently you have given [[status]] for optional cookies.',
+      '#description' => $this->t('Used in the block where the user can see the consent status and alter it. Use the [[status]] placeholder where the current consent status should be printed out.'),
       '#required' => TRUE,
-      '#format' => !empty($config->get('status_text')['format']) ? $config->get('status_text')['format']: 'basic_html',
+      '#format' => !empty($config->get('status_text')['format']) ? $config->get('status_text')['format']: 'editor',
     ];
+    $form['status_block']['cookie_consent_status_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie consent status text'),
+      '#default_value' => !empty($config->get('cookie_consent_status_text')) ? $config->get('cookie_consent_status_text') : 'consent',
+      '#description' => $this->t('Label for the consent status text, this gets inserted in the [[status]] placeholder in the text above.'),
+      '#required' => TRUE,
+    );
+    $form['status_block']['cookie_noconsent_status_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie noconsent status text'),
+      '#default_value' => !empty($config->get('cookie_noconsent_status_text')) ? $config->get('cookie_noconsent_status_text') : 'no consent',
+      '#description' => $this->t('Label for the no consent status text, this gets inserted in the [[status]] placeholder in the text above.'),
+      '#required' => TRUE,
+    );
+    $form['status_block']['cookie_consent_link_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie consent link text'),
+      '#default_value' => !empty($config->get('cookie_consent_link_text')) ? $config->get('cookie_consent_link_text') : 'Give my consent',
+      '#description' => $this->t('Label for the link that allows users to give their consent.'),
+      '#required' => TRUE,
+    );
+    $form['status_block']['cookie_noconsent_link_text'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie noconsent link text'),
+      '#default_value' => !empty($config->get('cookie_noconsent_link_text')) ? $config->get('cookie_noconsent_link_text') : 'Withdraw my consent',
+      '#description' => $this->t('Label for the link that allows users to withdraw their consent.'),
+      '#required' => TRUE,
+    );
 
-    $form['agree_button'] = [
+    // Delete block.
+
+    $form['delete_block'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Agree Button'),
+      '#title' => $this->t('Delete block'),
     ];
-    $form['agree_button']['agree_button_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Label'),
-      '#default_value' => !empty($config->get('agree_button_label')) ? $config->get('agree_button_label') : 'Consent',
-      '#required' => TRUE,
+    $form['delete_block']['delete_text'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Delete message'),
+      '#default_value' => !empty($config->get('delete_text')['value']) ? $config->get('delete_text')['value']: 'Delete all cookies from this domain',
+      '#description' => $this->t('Used in the block where the user can delete all cookies.'),
+      '#format' => !empty($config->get('delete_text')['format']) ? $config->get('delete_text')['format']: 'editor',
     ];
-    $form['agree_button']['cookie_agree_value'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Value'),
-      '#default_value' => !empty($config->get('cookie_agree_value')) ? $config->get('cookie_agree_value') : 2,
-      '#required' => TRUE,
-    );
-    $form['agree_button']['cookie_agree_status_text'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Cookie agree status text'),
-      '#default_value' => !empty($config->get('cookie_agree_status_text')) ? $config->get('cookie_agree_status_text') : 'consent',
-      '#required' => TRUE,
-    );
-    $form['agree_button']['cookie_agree_link_text'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Cookie agree link text'),
-      '#description' => $this->t('The text for the link that will allow users to give their consent.'),
-      '#default_value' => !empty($config->get('cookie_agree_link_text')) ? $config->get('cookie_agree_link_text') : 'Give my consent',
-      '#required' => TRUE,
-    );
-
-
-    $form['disagree_button'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Disagree Button'),
-    ];
-    $form['disagree_button']['disagree_button_label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Label'),
-      '#default_value' => !empty($config->get('disagree_button_label')) ? $config->get('disagree_button_label') : 'No consent',
-      '#required' => TRUE,
-    ];
-    $form['disagree_button']['cookie_disagree_value'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Value'),
-      '#default_value' => !empty($config->get('cookie_disagree_value')) ? $config->get('cookie_disagree_value') : 1,
-      '#required' => TRUE,
-    );
-    $form['disagree_button']['cookie_disagree_status_text'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Cookie disagree status text'),
-      '#default_value' => !empty($config->get('cookie_disagree_status_text')) ? $config->get('cookie_disagree_status_text') : 'no consent',
-      '#required' => TRUE,
-    );
-    $form['disagree_button']['cookie_disagree_link_text'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Cookie disagree link text'),
-      '#description' => $this->t('The text for the link that will allow users to withdraw their consent.'),
-      '#default_value' => !empty($config->get('cookie_disagree_link_text')) ? $config->get('cookie_disagree_link_text') : 'Withdraw my consent',
-      '#required' => TRUE,
-    );
-
-    $form['delete'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Delete Button'),
-    ];
-    $form['delete']['delete_text'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Cookie delete text'),
-      '#default_value' => !empty($config->get('delete_text')) ? $config->get('delete_text') : 'By clicking the following link, you will delete all cookies set by this website:',
-      '#required' => TRUE,
-    ];
-    $form['delete']['delete_button_text'] = [
+    $form['delete_block']['delete_button_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Cookie delete button text'),
       '#default_value' => !empty($config->get('delete_button_text')) ? $config->get('delete_button_text') : 'Delete these cookies',
+      '#description' => $this->t('Label for the button that deletes all cookies.'),
       '#required' => TRUE,
     ];
-    $form['delete']['delete_cookie_successful_text'] = [
+    $form['delete_block']['delete_cookie_successful_text'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Cookie delete button text'),
+      '#title' => $this->t('Cookie delete success message'),
       '#default_value' => !empty($config->get('delete_cookie_successful_text')) ? $config->get('delete_cookie_successful_text') : 'Cookies successfully deleted',
+      '#description' => $this->t('Notification for the user that all cookies are successfully deleted.'),
       '#required' => TRUE,
     ];
 
@@ -162,15 +170,15 @@ class SettingsForm extends ConfigFormBase {
     $this->config('calibr8_cookie_compliance.settings')
       ->set('cookie_expiration', $form_state->getValue('cookie_expiration'))
       ->set('notification_message', $form_state->getValue('notification_message'))
-      ->set('agree_button_label', $form_state->getValue('agree_button_label'))
-      ->set('cookie_agree_value', $form_state->getValue('cookie_agree_value'))
-      ->set('disagree_button_label', $form_state->getValue('disagree_button_label'))
-      ->set('cookie_disagree_value', $form_state->getValue('cookie_disagree_value'))
+      ->set('consent_button_label', $form_state->getValue('consent_button_label'))
+      ->set('cookie_consent_value', $form_state->getValue('cookie_consent_value'))
+      ->set('noconsent_button_label', $form_state->getValue('noconsent_button_label'))
+      ->set('cookie_noconsent_value', $form_state->getValue('cookie_noconsent_value'))
       ->set('status_text', $form_state->getValue('status_text'))
-      ->set('cookie_agree_link_text', $form_state->getValue('cookie_agree_link_text'))
-      ->set('cookie_disagree_link_text', $form_state->getValue('cookie_disagree_link_text'))
-      ->set('cookie_agree_status_text', $form_state->getValue('cookie_agree_status_text'))
-      ->set('cookie_disagree_status_text', $form_state->getValue('cookie_disagree_status_text'))
+      ->set('cookie_consent_link_text', $form_state->getValue('cookie_consent_link_text'))
+      ->set('cookie_noconsent_link_text', $form_state->getValue('cookie_noconsent_link_text'))
+      ->set('cookie_consent_status_text', $form_state->getValue('cookie_consent_status_text'))
+      ->set('cookie_noconsent_status_text', $form_state->getValue('cookie_noconsent_status_text'))
       ->set('delete_text', $form_state->getValue('delete_text'))
       ->set('delete_button_text', $form_state->getValue('delete_button_text'))
       ->set('delete_cookie_successful_text', $form_state->getValue('delete_cookie_successful_text'))

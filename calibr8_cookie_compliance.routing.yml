@@ -5,4 +5,4 @@ calibr8_cookie_compliance.settings:
     _form: '\Drupal\calibr8_cookie_compliance\Form\SettingsForm'
     _title: 'Cookie Compliance'
   requirements:
-    _permission: 'administer calibrate cookie compliance'
+    _permission: 'administer calibr8 cookie compliance'

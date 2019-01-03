@@ -29,13 +29,13 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
       'class' => [],
     ]),
     '#notification_message' => [
-      '#markup' => new TranslatableMarkup(Xss::filter($config->get('notification_message')['value'])),
+      '#markup' => $config->get('notification_message')['value'],
     ],
-    '#disagree_button_label' => [
-      '#markup' => new TranslatableMarkup(Xss::filter($config->get('disagree_button_label'))),
+    '#noconsent_button_label' => [
+      '#markup' => $config->get('noconsent_button_label'),
     ],
-    '#agree_button_label' => [
-      '#markup' => new TranslatableMarkup(Xss::filter($config->get('agree_button_label'))),
+    '#consent_button_label' => [
+      '#markup' => $config->get('consent_button_label'),
     ]
   ];
 
@@ -46,8 +46,8 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
   $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = [
     'markup' => $markup,
     'cookie_expiration' => Xss::filter($config->get('cookie_expiration')),
-    'cookie_agree_value' => Xss::filter($config->get('cookie_agree_value')),
-    'cookie_disagree_value' => Xss::filter($config->get('cookie_disagree_value')),
+    'cookie_consent_value' => Xss::filter($config->get('cookie_consent_value')),
+    'cookie_noconsent_value' => Xss::filter($config->get('cookie_noconsent_value')),
   ];
 }
 
@@ -61,8 +61,8 @@ function calibr8_cookie_compliance_theme() {
       'variables' => [
         'attributes' => [],
         'notification_message' => [],
-        'disagree_button_label' => [],
-        'agree_button_label' => [],
+        'noconsent_button_label' => [],
+        'consent_button_label' => [],
       ],
       'template' => 'cookie_info',
     ],
@@ -70,10 +70,10 @@ function calibr8_cookie_compliance_theme() {
       'template' => 'cookie_status',
       'variables' => [
         'status_text' => NULL,
-        'agree_text' => NULL,
-        'disagree_text' => NULL,
-        'agree_link_text' => NULL,
-        'disagree_link_text' => NULL,
+        'consent_text' => NULL,
+        'noconsent_text' => NULL,
+        'consent_link_text' => NULL,
+        'noconsent_link_text' => NULL,
       ],
     ],
     'calibr8_cookie_compliance_delete' => [

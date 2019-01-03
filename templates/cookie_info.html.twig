@@ -1,15 +1,18 @@
-<div {{ attributes }} style="display: none;">
+<div {{ attributes.addClass('calibr8-cookie-compliance') }} style="display: none;">
   <div class="container">
-    <div class="calibrate-cookie-compliance__text">
-        {{ notification_message }}
+
+    <div class="calibr8-cookie-compliance__text">
+      {{ notification_message }}
     </div>
-    <div class="calibrate-cookie-compliance__button-wrapper">
-      <div class="calibrate-cookie-compliance__agree">
-        <a class="button button-primary" id="calibrate-agree-cookie-compliance" href="#">{{ agree_button_label }}</a>
+
+    <div class="calibr8-cookie-compliance__button-wrapper">
+      <div class="calibr8-cookie-compliance__consent">
+        <a id="calibr8-cookie-compliance-consent" href="#" class="button button-primary" >{{ consent_button_label }}</a>
       </div>
-      <div class="calibrate-cookie-compliance__disagree">
-        <a id="calibrate-disagree-cookie-compliance" href="#">{{ disagree_button_label }}</a>
+      <div class="calibr8-cookie-compliance__noconsent">
+        <a id="calibr8-cookie-compliance-noconsent" href="#">{{ noconsent_button_label }}</a>
       </div>
     </div>
+
   </div>
 </div>
