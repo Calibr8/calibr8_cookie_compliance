@@ -24,7 +24,7 @@ class CookieStatusBlock extends BlockBase  {
     $config = \Drupal::config('calibr8_cookie_compliance.settings');
 
     $status_text = [
-      '#markup' => str_replace('[[status]]', '<span id="calibr8-cookie-compliance-status-text-anchor"></span>', $config->get('status_text')['value']),
+      '#markup' => str_replace('[[status]]', '<span id="calibr8-cookie-compliance-status-text-anchor" class="calibr8-cookie-compliance-status__label"></span>', $config->get('status_text')['value']),
     ];
 
     return [
