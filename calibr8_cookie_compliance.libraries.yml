@@ -1,8 +1,5 @@
 calibr8_cookie_compliance:
   version: 1.x
-  css:
-    theme:
-      css/calibr8-cookie-compliance.css: {}
   js:
     js/calibr8-cookie-compliance.js: {}
   dependencies:

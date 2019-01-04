@@ -5,9 +5,6 @@ type: module
 core: 8.x
 configure: calibr8_cookie_compliance.settings
 
-'interface translation project': calibr8_cookie_compliance
-'interface translation server pattern': modules/calibrate/%project/translations/%project.%language.po
-
 version: '8.x-2.1.8'
 dependencies:
   - calibr8_admin

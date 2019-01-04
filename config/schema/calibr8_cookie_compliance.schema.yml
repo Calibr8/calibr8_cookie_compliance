@@ -12,9 +12,15 @@ calibr8_cookie_compliance.settings:
         format:
           type: string
           label: 'Text format'
+    consent_button_label:
+      type: label
+      label: 'Consent button label'
+    noconsent_button_label:
+      type: label
+      label: 'No consent button label'
     status_text:
       type: mapping
-      label: 'Cookie status text'
+      label: 'Status message'
       mapping:
         value:
           type: text
@@ -22,27 +28,31 @@ calibr8_cookie_compliance.settings:
         format:
           type: string
           label: 'Text format'
-    disagree_button_label:
+    cookie_consent_status_text:
       type: label
-      label: 'Disagree button label'
-    agree_button_label:
+      label: 'Consent status text'
+    cookie_noconsent_status_text:
       type: label
-      label: 'Agree button label'
-    cookie_agree_value:
-      type: integer
-      label: 'Cookie agree value'
-    cookie_disagree_value:
-      type: integer
-      label: 'Cookie disagree value'
-    cookie_agree_link_text:
+      label: 'No consent status text'
+    cookie_consent_link_text:
       type: label
-      label: 'Agree link text'
-    cookie_disagree_link_text:
+      label: 'Cookie consent link text'
+    cookie_noconsent_link_text:
       type: label
-      label: 'Disagree link text'
-    cookie_agree_status_text:
+      label: 'Cookie noconsent link text'
+    delete_text:
+      type: mapping
+      label: 'Delete message'
+      mapping:
+        value:
+          type: text
+          label: 'Value'
+        format:
+          type: string
+          label: 'Text format'
+    delete_button_text:
       type: label
-      label: 'Agree status text'
-    cookie_disagree_status_text:
+      label: 'Cookie delete button text'
+    delete_cookie_successful_text:
       type: label
-      label: 'Disagree status text'
+      label: 'Cookie delete success message'
