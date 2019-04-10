@@ -29,7 +29,9 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
       'class' => [],
     ]),
     '#notification_message' => [
-      '#markup' => $config->get('notification_message')['value'],
+      '#type' => 'processed_text',
+      '#text' => $config->get('notification_message')['value'],
+      '#format' => $config->get('notification_message')['format'],
     ],
     '#noconsent_button_label' => [
       '#markup' => $config->get('noconsent_button_label'),

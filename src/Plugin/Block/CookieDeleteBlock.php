@@ -23,7 +23,9 @@ class CookieDeleteBlock extends BlockBase  {
     $config = \Drupal::config('calibr8_cookie_compliance.settings');
 
     $delete_text = [
-      '#markup' => $config->get('delete_text')['value'],
+      '#type' => 'processed_text',
+      '#text' => $config->get('delete_text')['value'],
+      '#format' => $config->get('delete_text')['format'],
     ];
 
     return [
