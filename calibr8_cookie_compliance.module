@@ -44,9 +44,16 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
   // Render markup.
   $markup = \Drupal::service('renderer')->renderRoot($html_info);
 
+  // Get base path overrides, if any.
+  // system.module l-732.
+  $cookiePath = \Drupal::request()->getBaseUrl() . '/';
+  \Drupal::moduleHandler()->alter('calibr8_cookie_compliance_cookie_path',
+    $cookiePath);
+
   $attachments['#attached']['library'][] = 'calibr8_cookie_compliance/calibr8_cookie_compliance';
   $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = [
     'markup' => $markup,
+    'cookie_path' => $cookiePath,
     'cookie_expiration' => Xss::filter($config->get('cookie_expiration')),
     'cookie_consent_value' => Xss::filter($config->get('cookie_consent_value')),
     'cookie_noconsent_value' => Xss::filter($config->get('cookie_noconsent_value')),

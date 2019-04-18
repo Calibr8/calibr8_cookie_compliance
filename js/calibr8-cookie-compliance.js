@@ -55,7 +55,7 @@
     var date = new Date();
     date.setTime(date.getTime() + (Drupal.calibr8CookieCompliance.settings.cookie_expiration*1000*60*60*24));
 
-    var cookie = cookieIdentifier + '=' + status + ';expires=' + date.toUTCString() + ';path=' + drupalSettings.path.baseUrl;
+    var cookie = cookieIdentifier + '=' + status + ';expires=' + date.toUTCString() + ';path=' + Drupal.calibr8CookieCompliance.settings.cookie_path;
     document.cookie = cookie;
   };
 
