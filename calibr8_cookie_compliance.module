@@ -50,10 +50,15 @@ function calibr8_cookie_compliance_page_attachments(&$attachments) {
   \Drupal::moduleHandler()->alter('calibr8_cookie_compliance_cookie_path',
     $cookiePath);
 
+  $siteId = NULL;
+  \Drupal::moduleHandler()->alter('calibr8_cookie_compliance_site_id',
+    $siteId);
+
   $attachments['#attached']['library'][] = 'calibr8_cookie_compliance/calibr8_cookie_compliance';
   $attachments['#attached']['drupalSettings']['calibr8_cookie_compliance'] = [
     'markup' => $markup,
     'cookie_path' => $cookiePath,
+    'site_id' => $siteId,
     'cookie_expiration' => Xss::filter($config->get('cookie_expiration')),
     'cookie_consent_value' => Xss::filter($config->get('cookie_consent_value')),
     'cookie_noconsent_value' => Xss::filter($config->get('cookie_noconsent_value')),
